@@ -1,0 +1,45 @@
+
+
+.Container{
+    padding: 20px;
+    background: white;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+.Header{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    &Title{
+        display: block;
+        &Warning{
+            color: #43B581;
+        }
+    }
+    &Actions{
+        display: flex;
+        opacity: 1;
+        &Item{
+            cursor: pointer;
+            padding: 0 5px;
+        }
+        &Icon{
+            width: 12px;
+            height: 12px;
+        }
+    }
+}
+.IsOverdue{
+    background: #A33F41;
+    color: white;
+}
+.Meta{
+    display: flex;
+    justify-content: flex-end;
+    &Deadline{
+        padding: 5px;
+        color: white;
+        background: #43B581;
+        border-radius: 3px;
+    }
+}

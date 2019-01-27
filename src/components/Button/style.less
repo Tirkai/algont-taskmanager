@@ -1,0 +1,33 @@
+.Button{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 10px;
+    background: #7289DA;
+    height: 40px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    &:hover{
+        background: darken(#7289DA, 10%);
+    }
+    &Blue{
+        background: #7289DA;
+        &:hover{
+            background: darken(#7289DA, 10%);
+        }
+    }
+    &Green{
+        background: #43B581;
+        &:hover{
+            background: darken(#43B581, 10%);
+        }
+    }
+    &Red{
+        background: #A33F41;
+        &:hover{
+            background: darken(#A33F41, 10%);
+        }
+    }
+}

@@ -1,0 +1,51 @@
+.TaskManager{
+    padding: 40px 0;
+    
+}
+.Container{
+    width: 700px;
+    background: white;
+    color: black;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    overflow: hidden;
+    border-radius: 3px;
+}
+.Header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: #333333;
+    color: white;
+    &Title{
+
+    }
+    &Actions{
+        &Icon{
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+        }
+    }
+}
+.Content{
+    background: #e2e2e2;
+    overflow: hidden;
+    &Empty{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        &Icon{
+            padding: 10px;
+            &Svg{
+                width: 64px;
+                height: 64px;
+            }
+        }
+        &Text{
+            text-align: center;
+            padding: 7px 0;
+        }
+    }
+}
