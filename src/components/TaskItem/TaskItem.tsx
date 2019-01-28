@@ -8,6 +8,7 @@ import { observer, inject } from 'mobx-react'
 import { DragSource, DropTarget } from 'react-dnd'
 
 import TaskItemComponent from 'src/components/TaskItem/TaskItem'
+import { taskDeadlineCheck } from 'src/utils/taskDeadlineCheck';
 
 interface ITaskItemProps extends ITaskItem {
     tasks?: TasksStore;
@@ -80,16 +81,19 @@ class TaskItem extends React.Component<ITaskItemProps> {
     }
     private containerStyles() {
         const { isDragging, isOver } = this.props;
+        const { overdue } = taskDeadlineCheck(this.props.deadline);
         return [
             style.Container,
-            (this.props.overdue ? style.IsOverdue : ''),
+            (overdue ? style.IsOverdue : ''),
             (isDragging ? style.IsDragging : ''),
             (isOver && !isDragging ? style.IsOverDrag : ''),
         ].join(' ');
     }
     private headerStyles(){
-        return [style.HeaderTitle,
-            (this.props.warning && !this.props.overdue ? style.HeaderTitleWarning : '')
+        const { warning, overdue } = taskDeadlineCheck(this.props.deadline);
+        return [
+            style.HeaderTitle,
+            (warning && !overdue ? style.HeaderTitleWarning : '')
         ].join(' ')
     }
 }
