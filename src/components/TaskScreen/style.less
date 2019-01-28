@@ -1,5 +1,9 @@
-.TaskScreen{}
-.Container{}
+.TaskScreen{
+    display: block;
+}
+.Container{
+    display: block;
+}
 .Title{
     font-size: 32px;
     margin-bottom: 10px;
@@ -29,7 +33,8 @@
 .EditableInput{
     border: none;
     background: #e2e2e2;
-    padding: 3px;
+    box-sizing: border-box;
+    padding: 10px;
     &Title{
         font-size: 32px;
         height: 50px;
@@ -38,7 +43,7 @@
     &Content{
         font-size: 16px;
         width: 100%;
-        height: 300px;
+        height: 200px;
     }
     &Date{
         height: 30px;

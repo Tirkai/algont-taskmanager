@@ -54,7 +54,7 @@ export default class TaskManager extends React.Component<ITaskCreatorProps>{
             });
             modal.hideModal();
         } else {
-            alert("Некоторые поля не заполнены");
+            alert("Некоторые поля заполнены не корректно");
         }
 
     }

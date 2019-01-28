@@ -12,21 +12,21 @@ import TaskItemComponent from 'src/components/TaskItem/TaskItem'
 interface ITaskItemProps extends ITaskItem {
     tasks?: TasksStore;
     modal?: ModalStore;
-    onClick?: (handle: any) => void;
     connectDragSource?: any;
     connectDropTarget?: any;
-    isDragging: boolean;
-    isOver: boolean;
+    isDragging?: boolean;
+    isOver?: boolean;
+    onClick?: (handle: any) => void;
+    handleDrop: (id: number, task: ITaskItem) => void;
 }
 
 const itemSource = {
     beginDrag: (props: any) => {
-        console.log(props);
         return props;
     }
 }
 const itemTarget = {
-    drop: (props: any, monitor: any, component: any) => {
+    drop: (props: ITaskItemProps, monitor: any) => {
         return props.handleDrop(props.id, monitor.getItem());
     }
 }
@@ -48,20 +48,6 @@ const collectTarget = (connect: any, monitor: any) => {
 
 @inject('tasks', 'modal') @observer
 class TaskItem extends React.Component<ITaskItemProps> {
-    public state = {
-        containerClasses: []
-    }
-    public componentDidMount() {
-        this.termWarningCheck();
-    }
-    public termWarningCheck = () => {
-        const deadlineDate: any = new Date(this.props.deadline);
-        const currentDate: any = new Date();
-        deadlineDate.setDate(deadlineDate.getDate() - 3);
-        this.setState({
-            isTermWarning: deadlineDate <= currentDate
-        });
-    }
     public handleRemoveTask = () => {
         const tasks = this.props.tasks!;
         tasks.removeTask(this.props.id);
@@ -83,11 +69,8 @@ class TaskItem extends React.Component<ITaskItemProps> {
                         <div className={style.HeaderActions}>
                             <div className={style.Meta}>
                                 <div className={style.MetaDeadline}>
-                                    {`
-                                        ${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}
-                                    `}
+                                    {`${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`}
                                 </div>
-
                             </div>
                         </div>
                     </div>

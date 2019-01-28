@@ -23,7 +23,6 @@ interface ITaskScreenState {
 }
 @inject('tasks', 'modal') @observer
 export default class TaskScreen extends React.Component<ITaskScreenProps, ITaskScreenState> {
-
     public state = {
         isEditEnabled: false,
         taskTitle: "",
@@ -53,7 +52,6 @@ export default class TaskScreen extends React.Component<ITaskScreenProps, ITaskS
         this.setState({
             isEditEnabled: false
         });
-
     };
     public handleInput = (e: any) => {
         console.log(e);
@@ -94,7 +92,7 @@ export default class TaskScreen extends React.Component<ITaskScreenProps, ITaskS
                                 )
                             }
                             <Button onClick={this.handleRemoveTask} color="red">
-                                Закрыть
+                                Удалить
                             </Button>
                         </div>
                     </div>

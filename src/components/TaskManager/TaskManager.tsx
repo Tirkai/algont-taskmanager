@@ -24,26 +24,17 @@ interface ITaskMangerState {
 
 @inject('tasks', 'modal') @observer
 export default class TaskManager extends React.Component<ITaskManagerProps, ITaskMangerState>{
-    public state = {
-        isShowTaskCreator: false
-    }
     public handleShowTaskCreator = () => {
         const modal = this.props.modal!;
         modal.showModal(<TaskCreator />)
-        /*
-        this.setState((prevState) => ({
-            isShowTaskCreator: !prevState.isShowTaskCreator
-        }));
-        */
     }
-    public handleOpenTask = (taskProps : ITaskItem) => {
+    public handleOpenTask = (taskProps: ITaskItem) => {
         const modal = this.props.modal!;
-        modal.showModal(<TaskScreen {...taskProps}/>);
+        modal.showModal(<TaskScreen {...taskProps} />);
     }
-    public handleDrop = (targetId: any, sourceTask : ITaskItem) => {
+    public handleDrop = (targetId: number, sourceTask: ITaskItem) => {
         const tasks = this.props.tasks!;
         tasks.moveTask(targetId, sourceTask);
-        // alert(targetId);
     }
     public render() {
         const tasks: TasksStore = this.props.tasks!;
@@ -54,7 +45,6 @@ export default class TaskManager extends React.Component<ITaskManagerProps, ITas
                         <div className={style.HeaderTitle}>
                             Задачи ({tasks.list.length})
                         </div>
-
                         <div className={style.HeaderActions}>
                             <div className={style.HeaderActionsItem}>
                                 <Button onClick={this.handleShowTaskCreator}>
@@ -63,35 +53,34 @@ export default class TaskManager extends React.Component<ITaskManagerProps, ITas
                             </div>
                         </div>
                     </div>
-                    <div className={style.TaskCreator} style={{ display: this.state.isShowTaskCreator ? "block" : "none" }}>
-                        <TaskCreator />
-                    </div>
                     <div className={style.Content}>
-                    {tasks.list.length ? (
-                        tasks.list.map((item) => (
-                            <TaskItem key={item.id}
-                            {...item}
-                            onClick={() => this.handleOpenTask(item)}
-                            handleDrop={this.handleDrop}
-                            />
-                        ))
-                    ) : (
-                        <div className={style.ContentEmpty}>
-                            <div className={style.ContentEmptyIcon}>
-                                <img src={taskIcon} className={style.ContentEmptyIconSvg}/>
-                            </div>
-                            <div className={style.ContentEmptyText}>
-                                Нет активных задач!
-                            </div>
-                            <div className={style.ContentEmptyText}>
-                                <Button onClick={this.handleShowTaskCreator}>
-                                    Добавить
-                                </Button>
-                            </div>
-                        </div>
-                    )}
-                        
+                        {tasks.list.length ? (
+                            tasks.list.map((item) => (
+                                <TaskItem key={item.id}
+                                    {...item}
+                                    onClick={() => this.handleOpenTask(item)}
+                                    handleDrop={this.handleDrop}
+                                />
+                            ))
+                        ) : this.emptyTasksListTemplate()}
                     </div>
+                </div>
+            </div>
+        )
+    }
+    private emptyTasksListTemplate() {
+        return (
+            <div className={style.ContentEmpty}>
+                <div className={style.ContentEmptyIcon}>
+                    <img src={taskIcon} className={style.ContentEmptyIconSvg} />
+                </div>
+                <div className={style.ContentEmptyText}>
+                    Нет активных задач!
+                </div>
+                <div className={style.ContentEmptyText}>
+                    <Button onClick={this.handleShowTaskCreator}>
+                        Добавить
+                    </Button>
                 </div>
             </div>
         )
