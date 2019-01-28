@@ -33,7 +33,7 @@ export default class TaskManager extends React.Component<ITaskCreatorProps>{
         if (this.state.taskTitle && this.state.taskContent && this.state.taskDate) {
             const date = this.state.taskDate.split("-");
             const year = Number.parseInt(date[0], 0);
-            const month = Number.parseInt(date[1], 0);
+            const month = Number.parseInt(date[1], 0) - 1;
             const day = Number.parseInt(date[2], 0);
             
             const deadline = new Date(year, month, day).getTime();

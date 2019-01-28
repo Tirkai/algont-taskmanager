@@ -26,5 +26,12 @@ export class TasksStore{
         this.list.splice(index, 1);
         this.updateStorage();
     }
+    @action public moveTask(targetId : number, task : ITaskItem){
+        const sourceIndex = this.list.findIndex(object => object.id === task.id);
+        const targetIndex = this.list.findIndex(object => object.id === targetId);
+        this.list.splice(sourceIndex, 1);
+        this.list.splice(targetIndex, 0, task); 
+        this.updateStorage();
+    }
 }
 export default new TasksStore();

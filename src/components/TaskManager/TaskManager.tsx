@@ -40,6 +40,11 @@ export default class TaskManager extends React.Component<ITaskManagerProps, ITas
         const modal = this.props.modal!;
         modal.showModal(<TaskScreen {...taskProps}/>);
     }
+    public handleDrop = (targetId: any, sourceTask : ITaskItem) => {
+        const tasks = this.props.tasks!;
+        tasks.moveTask(targetId, sourceTask);
+        // alert(targetId);
+    }
     public render() {
         const tasks: TasksStore = this.props.tasks!;
         return (
@@ -64,7 +69,11 @@ export default class TaskManager extends React.Component<ITaskManagerProps, ITas
                     <div className={style.Content}>
                     {tasks.list.length ? (
                         tasks.list.map((item) => (
-                            <TaskItem key={item.id} {...item} onClick={() => this.handleOpenTask(item)}/>
+                            <TaskItem key={item.id}
+                            {...item}
+                            onClick={() => this.handleOpenTask(item)}
+                            handleDrop={this.handleDrop}
+                            />
                         ))
                     ) : (
                         <div className={style.ContentEmpty}>
