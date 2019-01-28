@@ -59,13 +59,14 @@ class TaskItem extends React.Component<ITaskItemProps> {
     }
     public render() {
         const date = new Date(this.props.deadline);
+        const status = taskDeadlineCheck(this.props.deadline);
         const { connectDragSource, connectDropTarget } = this.props;
         return connectDropTarget(connectDragSource(
             <div className={style.TaskItem} onClick={this.props.onClick}>
-                <div className={this.containerStyles()}>
+                <div className={this.containerStyles(status)}>
                     <div className={style.Header}>
-                        <div className={this.headerStyles()} onClick={this.handleOpenTask}>
-                            {this.props.title}
+                        <div className={this.headerStyles(status)} onClick={this.handleOpenTask}>
+                            {this.taskTitleTemplate(status)} 
                         </div>
                         <div className={style.HeaderActions}>
                             <div className={style.Meta}>
@@ -79,22 +80,23 @@ class TaskItem extends React.Component<ITaskItemProps> {
             </div>
         ))
     }
-    private containerStyles() {
+    private containerStyles(status : any) {
         const { isDragging, isOver } = this.props;
-        const { overdue } = taskDeadlineCheck(this.props.deadline);
         return [
             style.Container,
-            (overdue ? style.IsOverdue : ''),
+            (status.overdue ? style.IsOverdue : ''),
             (isDragging ? style.IsDragging : ''),
             (isOver && !isDragging ? style.IsOverDrag : ''),
         ].join(' ');
     }
-    private headerStyles(){
-        const { warning, overdue } = taskDeadlineCheck(this.props.deadline);
+    private headerStyles(status : any){
         return [
             style.HeaderTitle,
-            (warning && !overdue ? style.HeaderTitleWarning : '')
-        ].join(' ')
+            (status.warning && !status.overdue ? style.HeaderTitleWarning : '')
+        ].join(' ');
+    }
+    private taskTitleTemplate(status: any){
+        return (this.props.title + " " + (status.warning && !status.overdue ? "(срок на исходе)" : '') + (status.overdue ? "(просрочено)" : ''));
     }
 }
 export default DropTarget('item', itemTarget, collectTarget)(DragSource('item', itemSource, collectSource)(TaskItem));
