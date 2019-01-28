@@ -1,13 +1,11 @@
 const taskDeadlineCheck = (deadline: any) => {
-    const deadlineDate: any = new Date(deadline);
-    const bufferDeadlineDate = new Date(deadlineDate.getTime());
+    const deadlineDate: any = new Date(deadline).getTime();
     const currentDate : any = new Date();
-    const warningDate: any = new Date(bufferDeadlineDate.setDate(bufferDeadlineDate.getDate() - 3));
-    
-    console.log(warningDate);
+    const warningDate: any = new Date(deadlineDate - (72 * 60 * 60 * 1000));
+
     const result = {
         warning: currentDate >= warningDate,
-        overdue: deadlineDate <= new Date()
+        overdue: deadlineDate <= currentDate
     }
     console.log(result);
     return result;
